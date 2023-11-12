@@ -389,7 +389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xDim: 9
   yDim: 9
-  fillTime: 0.1
+  fillTime: 0.15
+  delayFillTime: 0.5
   level: {fileID: 1773144088}
   piecePrefabs:
   - type: 0

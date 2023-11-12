@@ -24,6 +24,7 @@ namespace Match3
         public int xDim;
         public int yDim;
         public float fillTime;
+        public float delayFillTime;
 
         public Level level;
 
@@ -100,7 +101,7 @@ namespace Match3
 
             while (needsRefill)
             {
-                yield return new WaitForSeconds(fillTime);
+                yield return new WaitForSeconds(delayFillTime);
                 while (FillStep())
                 {
                     _inverse = !_inverse;
@@ -298,7 +299,25 @@ namespace Match3
             {
                 _pieces[piece1.X, piece1.Y] = piece1;
                 _pieces[piece2.X, piece2.Y] = piece2;
+
+                //StartCoroutine(ReverseSwap(piece1, piece2));
             }
+        }
+
+        private IEnumerator ReverseSwap(GamePiece piece1, GamePiece piece2)
+        {
+            int piece1X = piece1.X;
+            int piece1Y = piece1.Y;
+            int piece2X = piece2.X;
+            int piece2Y = piece2.Y;
+
+            piece1.MovableComponent.Move(piece2X, piece2Y, fillTime);
+            piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
+
+            yield return new WaitForSeconds(fillTime);
+            
+            piece1.MovableComponent.Move(piece1X, piece1Y, fillTime);
+            piece2.MovableComponent.Move(piece2X, piece2Y, fillTime);
         }
 
         public void PressPiece(GamePiece piece) => _pressedPiece = piece;
