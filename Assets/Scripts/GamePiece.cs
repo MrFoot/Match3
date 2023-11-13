@@ -57,14 +57,6 @@ namespace Match3
             _type = type;
         }
 
-        private void OnMouseEnter()
-        {
-            _gameGrid.EnterPiece(this);
-            _gameGrid.ReleasePiece();
-        }
-
-        private void OnMouseDown() => _gameGrid.PressPiece(this);
-
         public bool IsMovable() => _movableComponent != null;
 
         public bool IsColored() => _colorComponent != null;

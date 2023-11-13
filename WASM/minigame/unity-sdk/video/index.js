@@ -1,12 +1,13 @@
-import { isH5Renderer, isSupportVideoDecoder } from '../../check-version';
+import { isH5Renderer, isSupportVideoPlayer, isPc, isDevtools } from '../../check-version';
 let FrameworkData = null;
+const isWebVideo = isH5Renderer || isPc || isDevtools;
 const isDebug = false;
 const videoInstances = {};
 function _JS_Video_CanPlayFormat(format, data) {
     
     
     FrameworkData = data;
-    return !!isSupportVideoDecoder;
+    return !!isSupportVideoPlayer;
 }
 let videoInstanceIdCounter = 0;
 function dynCall_vi(...args) {
@@ -37,7 +38,7 @@ function _JS_Video_Create(url) {
     if (isDebug) {
         console.log('_JS_Video_Create', source);
     }
-    if (isH5Renderer) {
+    if (isWebVideo) {
         
         const video = GameGlobal.manager.createWKVideo(source, FrameworkData.GLctx);
         
@@ -181,7 +182,7 @@ function _JS_Video_Height(video) {
     return videoInstances[video].videoHeight;
 }
 function _JS_Video_IsPlaying(video) {
-    if (isH5Renderer) {
+    if (isWebVideo) {
         const v = videoInstances[video];
         return v.isPlaying;
     }
@@ -270,7 +271,7 @@ function _JS_Video_SetErrorHandler(video, ref, onerror) {
     if (isDebug) {
         console.log('_JS_Video_SetErrorHandler', video, ref, onerror);
     }
-    if (isH5Renderer) {
+    if (isWebVideo) {
         videoInstances[video].on('error', (errMsg) => {
             dynCall_vii(onerror, ref, errMsg);
         });
@@ -287,7 +288,9 @@ function _JS_Video_SetPlaybackRate(video, rate) {
     if (isDebug) {
         console.log('_JS_Video_SetPlaybackRate', video, rate);
     }
-    console.error('暂不支持设置playbackRate');
+    if (rate !== 1) {
+        console.error('暂不支持设置playbackRate');
+    }
     return;
     
     
@@ -297,7 +300,7 @@ function _JS_Video_SetReadyHandler(video, ref, onready) {
         console.log('_JS_Video_SetReadyHandler', video, ref, onready);
     }
     const v = videoInstances[video];
-    if (isH5Renderer) {
+    if (isWebVideo) {
         v.on('canplay', () => {
             dynCall_vi(onready, ref);
         });
@@ -316,7 +319,7 @@ function _JS_Video_SetSeekedOnceHandler(video, ref, onseeked) {
         console.log('_JS_Video_SetSeekedOnceHandler', video, ref, onseeked);
     }
     const v = videoInstances[video];
-    if (isH5Renderer) {
+    if (isWebVideo) {
         v.on('seek', () => {
             dynCall_vi(onseeked, ref);
         });
@@ -366,7 +369,7 @@ function _JS_Video_UpdateToTexture(video, tex) {
         GLctx.texParameteri(GLctx.TEXTURE_2D, GLctx.TEXTURE_WRAP_S, GLctx.CLAMP_TO_EDGE);
         GLctx.texParameteri(GLctx.TEXTURE_2D, GLctx.TEXTURE_WRAP_T, GLctx.CLAMP_TO_EDGE);
         GLctx.texParameteri(GLctx.TEXTURE_2D, GLctx.TEXTURE_MIN_FILTER, GLctx.LINEAR);
-        if (isH5Renderer) {
+        if (isWebVideo) {
             v.render();
         }
         else {
@@ -377,7 +380,7 @@ function _JS_Video_UpdateToTexture(video, tex) {
     }
     else {
         GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[tex]);
-        if (isH5Renderer) {
+        if (isWebVideo) {
             v.render();
         }
         else {
@@ -392,7 +395,7 @@ function _JS_Video_Width(video) {
 }
 function _JS_Video_SetSeekedHandler(video, ref, onseeked) {
     const v = videoInstances[video];
-    if (isH5Renderer) {
+    if (isWebVideo) {
         v.on('seek', () => {
             dynCall_vi(onseeked, ref);
         });
