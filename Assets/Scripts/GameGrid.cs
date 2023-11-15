@@ -311,7 +311,7 @@ namespace Match3
 
                 piece1.MovableComponent.Move(piece2.X, piece2.Y, fillTime);
                 piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
-
+                
                 if (piece1.Type == PieceType.Rainbow && piece1.IsClearable() && piece2.IsColored())
                 {
                     ClearColorPiece clearColor = piece1.GetComponent<ClearColorPiece>();
@@ -366,6 +366,8 @@ namespace Match3
                 {
                     piece2.MovableComponent.MoveAndReverse(piece1.X, piece1.Y, 0.2f);
                 }
+                
+                level.AudioMgr.PlayFXSound(FXSType.MoveReverse);
             }
         }
 
@@ -384,6 +386,7 @@ namespace Match3
                 Vector3 offset = newX < 0 ? Vector3.left : Vector3.right;
                 piece.MovableComponent.MoveCancel(piece.transform.position + offset * 0.3f, 0.05f);
                 ClearPiece();
+                level.AudioMgr.PlayFXSound(FXSType.MoveInValid);
                 return;
             }
             if (newY < 0 || newY >= yDim)
@@ -392,6 +395,7 @@ namespace Match3
                 Vector3 offset = newY < 0 ? Vector3.up : Vector3.down;
                 piece.MovableComponent.MoveCancel(piece.transform.position + offset * 0.3f, 0.05f);
                 ClearPiece();
+                level.AudioMgr.PlayFXSound(FXSType.MoveInValid);
                 return;
             }
             
@@ -442,7 +446,11 @@ namespace Match3
                     int specialPieceY = randomPiece.Y;
 
                     // Spawning special pieces
-                    if (match.Count == 4)
+                    if (match.Count == 3)
+                    {
+                        level.AudioMgr.PlayFXSound(FXSType.Match3);
+                    }
+                    else if (match.Count == 4)
                     {
                         if (_pressedPiece == null || _enteredPiece == null)
                         {
@@ -456,10 +464,12 @@ namespace Match3
                         {
                             specialPieceType = PieceType.ColumnClear;
                         }
+                        level.AudioMgr.PlayFXSound(FXSType.Combo);
                     } // Spawning a rainbow piece
                     else if (match.Count >= 5)
                     {
                         specialPieceType = PieceType.Rainbow;
+                        level.AudioMgr.PlayFXSound(FXSType.GetProp);
                     }
 
                     foreach (var gamePiece in match)

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8723885478071782239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4156026555038653917}
+  - component: {fileID: 2951094195126874234}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4156026555038653917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723885478071782239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0959954, y: -2.7272177, z: -0.03447872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2951094195126874234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723885478071782239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2b4b7c66d943f69974fe73ebb8609f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FXMaxCount: 5
+  AC_ButtonClick: {fileID: 8300000, guid: 0fe5bbbac89a34dc99a3b0949b82a7a0, type: 3}
+  AC_BGM: {fileID: 8300000, guid: 9fa4961e4c82745edac1397926ec08a7, type: 3}
+  AC_Win: {fileID: 8300000, guid: 55d2af137bde043859935445a54ba18a, type: 3}
+  AC_Lose: {fileID: 8300000, guid: 5c063eb642a344adc880056307443354, type: 3}
+  AC_Move: {fileID: 8300000, guid: f134274f842b7485a8765efa4836574f, type: 3}
+  AC_MoveReverse: {fileID: 8300000, guid: 2579a5d4f357a4d20a38318778cb693d, type: 3}
+  AC_MoveInValid: {fileID: 8300000, guid: 977075e22422042688fe35f86a9eb3ce, type: 3}
+  AC_Match3: {fileID: 8300000, guid: ce258ce4d61a2472eb915b67589ba0c1, type: 3}
+  AC_ClearLine: {fileID: 8300000, guid: 4d280ef724a964d8d89df113b17a7d03, type: 3}
+  AC_ClearColor: {fileID: 8300000, guid: e201ae8a7b939433a83cfe4a57bc3ef3, type: 3}
+  AC_Combo: {fileID: 8300000, guid: 0eb855647ee594aa3b68f64d337b2182, type: 3}
+  AC_GetProp: {fileID: 8300000, guid: 63390d618ac45435196eb59786d41200, type: 3}
+  AC_UseProp: {fileID: 8300000, guid: 66644ed8ff3ee4ce09a69b366c6d9db6, type: 3}

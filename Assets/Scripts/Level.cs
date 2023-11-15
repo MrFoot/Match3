@@ -7,6 +7,7 @@ namespace Match3
     {
         public GameGrid gameGrid;
         public Hud hud;
+        public AudioManager audioManager;
 
         public int score1Star;
         public int score2Star;
@@ -21,9 +22,12 @@ namespace Match3
         private void Start()
         {
             hud.SetScore(currentScore);
+            AudioMgr.PlayBGM();
         }
 
         public LevelType Type => type;
+
+        public AudioManager AudioMgr => audioManager;
 
         protected virtual void GameWin()
         {
@@ -41,6 +45,7 @@ namespace Match3
     
         public virtual void OnMove()
         {
+            AudioMgr.PlayFXSound(FXSType.Move);
         }
 
         public virtual void OnPieceCleared(GamePiece piece)

@@ -61,6 +61,7 @@ namespace Match3
 
         public void SetLevelType(LevelType type)
         {
+            level.AudioMgr.PlayBGM();
             switch (type)
             {
                 case LevelType.Moves:
@@ -80,6 +81,7 @@ namespace Match3
 
         public void OnGameWin(int score)
         {
+            level.AudioMgr.PlayFXSound(FXSType.Win);
             gameOver.ShowWin(score, _starIndex);
             if (_starIndex > PlayerPrefs.GetInt(SceneManager.GetActiveScene().name, 0))
             {
@@ -87,6 +89,10 @@ namespace Match3
             }
         }
 
-        public void OnGameLose() => gameOver.ShowLose();
+        public void OnGameLose()
+        {
+            level.AudioMgr.PlayFXSound(FXSType.Lose);
+            gameOver.ShowLose();
+        }
     }
 }
