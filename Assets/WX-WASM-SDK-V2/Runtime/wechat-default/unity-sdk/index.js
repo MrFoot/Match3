@@ -25,6 +25,7 @@ import chat from './chat';
 import font from './font/index';
 import authorize from './authorize';
 import videoDecoder from './video/index';
+import mobileKeyboard from './mobileKeyboard/index';
 const unityVersion = '$unityVersion$';
 GameGlobal.unityNamespace = GameGlobal.unityNamespace || {};
 GameGlobal.unityNamespace.unityVersion = unityVersion;
@@ -98,5 +99,6 @@ const WXWASMSDK = {
     ...font,
     ...authorize,
     ...videoDecoder,
+    ...mobileKeyboard,
 };
 GameGlobal.WXWASMSDK = WXWASMSDK;

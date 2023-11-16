@@ -13,8 +13,11 @@ namespace Match3
 
         public ButtonPlayerPrefs[] buttons;
 
+        public AudioManager audioManager;
+        
         private void Start()
         {
+            audioManager.PlayBGM();
             for (int i = 0; i < buttons.Length; i++)
             {
                 int score = PlayerPrefs.GetInt(buttons[i].playerPrefKey, 0);
@@ -30,6 +33,7 @@ namespace Match3
         public void OnButtonPress(string levelName)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
+            audioManager.PlayFXSound(FXSType.ButtonClick);
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Match3
 {
@@ -44,10 +46,22 @@ namespace Match3
 
         private bool _gameOver;
 
+        #region Move Threshold
+
+        private const float ScreenWidthScale = 0.06f;
+        private const float MoveXYScaleThreshold = 2f;  //当手指的X和Y方向的位移比超过一定值时，才可以触发移动
+
+        private float _movePositionThreshold; //当手指拖动足够位移时，才可以触发移动
+        private Vector3 _pressedPieceScreenPosition; //当手指按下元素时，手指在屏幕的位置
+        
+        #endregion
+
         public bool IsFilling { get; private set; }
 
         private void Awake()
         {
+            _movePositionThreshold = Screen.width * ScreenWidthScale;
+            
             // populating dictionary with piece prefabs types
             _piecePrefabDict = new Dictionary<PieceType, GameObject>();
             for (int i = 0; i < piecePrefabs.Length; i++)
@@ -94,6 +108,53 @@ namespace Match3
             StartCoroutine(Fill());
         }
 
+        
+        /// <summary>
+        /// 这里对判断一个元素是否触发移动，应该用选中元素后，鼠标
+        /// </summary>
+        private void Update()
+        {
+            if (!Camera.main) return;
+//#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0))  //Pressed
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                if (hit)
+                {
+                    PressPiece(hit.transform.GetComponent<GamePiece>());
+                }
+                else
+                {
+                    ClearPiece();
+                }
+            }
+            else if (Input.GetMouseButtonUp(0)) //Released
+            {
+                ClearPiece();
+            }
+            else if (_pressedPiece && Input.GetMouseButton(0))  //Keep Move
+            {
+                Vector3 offset = Input.mousePosition - _pressedPieceScreenPosition;
+                if (Math.Abs(offset.x) > _movePositionThreshold || Math.Abs(offset.y) > _movePositionThreshold)
+                {
+                    if (Math.Abs(offset.x) / Math.Abs(offset.y) > MoveXYScaleThreshold)  //Horizontal move
+                    {
+                        MovePiece(_pressedPiece, offset.x < 0 ? _pressedPiece.X - 1 : _pressedPiece.X + 1, _pressedPiece.Y);
+                    }
+                    else if(Math.Abs(offset.y) / Math.Abs(offset.x) > MoveXYScaleThreshold)  //Vertical move
+                    {
+                        MovePiece(_pressedPiece, _pressedPiece.X, offset.y < 0 ? _pressedPiece.Y + 1 : _pressedPiece.Y - 1);
+                    }
+                }
+            }
+// #else
+//             
+// #endif
+            
+        }
+        
+        
         private IEnumerator Fill()
         {        
             bool needsRefill = true;
@@ -250,7 +311,7 @@ namespace Match3
 
                 piece1.MovableComponent.Move(piece2.X, piece2.Y, fillTime);
                 piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
-
+                
                 if (piece1.Type == PieceType.Rainbow && piece1.IsClearable() && piece2.IsColored())
                 {
                     ClearColorPiece clearColor = piece1.GetComponent<ClearColorPiece>();
@@ -288,51 +349,81 @@ namespace Match3
                     ClearPiece(piece2.X, piece2.Y);
                 }
 
-                _pressedPiece = null;
-                _enteredPiece = null;
-
                 StartCoroutine(Fill());
 
                 level.OnMove();
             }
-            else
+            else //Not Match
             {
                 _pieces[piece1.X, piece1.Y] = piece1;
                 _pieces[piece2.X, piece2.Y] = piece2;
 
-                //StartCoroutine(ReverseSwap(piece1, piece2));
+                if (piece1.MovableComponent)
+                {
+                    piece1.MovableComponent.MoveAndReverse(piece2.X, piece2.Y, 0.2f);
+                }
+                if (piece2.MovableComponent)
+                {
+                    piece2.MovableComponent.MoveAndReverse(piece1.X, piece1.Y, 0.2f);
+                }
+                
+                level.AudioMgr.PlayFXSound(FXSType.MoveReverse);
             }
         }
 
-        private IEnumerator ReverseSwap(GamePiece piece1, GamePiece piece2)
+        private void PressPiece(GamePiece piece)
         {
-            int piece1X = piece1.X;
-            int piece1Y = piece1.Y;
-            int piece2X = piece2.X;
-            int piece2Y = piece2.Y;
-
-            piece1.MovableComponent.Move(piece2X, piece2Y, fillTime);
-            piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
-
-            yield return new WaitForSeconds(fillTime);
-            
-            piece1.MovableComponent.Move(piece1X, piece1Y, fillTime);
-            piece2.MovableComponent.Move(piece2X, piece2Y, fillTime);
+            _pressedPieceScreenPosition = Camera.main.WorldToScreenPoint(piece.transform.position + new Vector3(0.5f, -0.5f));
+            _pressedPieceScreenPosition.z = 0;
+            _pressedPiece = piece;
         }
 
-        public void PressPiece(GamePiece piece) => _pressedPiece = piece;
+        private void MovePiece(GamePiece piece, int newX, int newY)
+        {
+            if (newX < 0 || newX >= xDim)
+            {
+                //out of bound
+                Vector3 offset = newX < 0 ? Vector3.left : Vector3.right;
+                piece.MovableComponent.MoveCancel(piece.transform.position + offset * 0.3f, 0.05f);
+                ClearPiece();
+                level.AudioMgr.PlayFXSound(FXSType.MoveInValid);
+                return;
+            }
+            if (newY < 0 || newY >= yDim)
+            {
+                // out of bound
+                Vector3 offset = newY < 0 ? Vector3.up : Vector3.down;
+                piece.MovableComponent.MoveCancel(piece.transform.position + offset * 0.3f, 0.05f);
+                ClearPiece();
+                level.AudioMgr.PlayFXSound(FXSType.MoveInValid);
+                return;
+            }
+            
+            //get swap piece
+            EnterPiece(_pieces[newX, newY]);
+            ReleasePieces();
+        }
 
-        public void EnterPiece(GamePiece piece) => _enteredPiece = piece;
+        private void EnterPiece(GamePiece piece) => _enteredPiece = piece;
 
-        public void ReleasePiece()
+        private void ClearPiece()
+        {
+            _pressedPiece = null;
+            _enteredPiece = null;
+            _pressedPieceScreenPosition = Vector3.negativeInfinity;
+        }
+
+        private void ReleasePieces()
         {
             if (_pressedPiece && _enteredPiece)
             {
-                if (IsAdjacent (_pressedPiece, _enteredPiece))
+                if (IsAdjacent(_pressedPiece, _enteredPiece))
                 {
                     SwapPieces(_pressedPiece, _enteredPiece);
-                }    
+                }
             }
+
+            ClearPiece();
         }
 
         private bool ClearAllValidMatches()
@@ -355,7 +446,11 @@ namespace Match3
                     int specialPieceY = randomPiece.Y;
 
                     // Spawning special pieces
-                    if (match.Count == 4)
+                    if (match.Count == 3)
+                    {
+                        level.AudioMgr.PlayFXSound(FXSType.Match3);
+                    }
+                    else if (match.Count == 4)
                     {
                         if (_pressedPiece == null || _enteredPiece == null)
                         {
@@ -369,10 +464,12 @@ namespace Match3
                         {
                             specialPieceType = PieceType.ColumnClear;
                         }
+                        level.AudioMgr.PlayFXSound(FXSType.Combo);
                     } // Spawning a rainbow piece
                     else if (match.Count >= 5)
                     {
                         specialPieceType = PieceType.Rainbow;
+                        level.AudioMgr.PlayFXSound(FXSType.GetProp);
                     }
 
                     foreach (var gamePiece in match)
