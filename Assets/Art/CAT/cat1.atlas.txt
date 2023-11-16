@@ -1,0 +1,132 @@
+
+cat1.png
+size: 2009,459
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cat1_coatails
+  rotate: true
+  xy: 1094, 6
+  size: 141, 151
+  orig: 141, 151
+  offset: 0, 0
+  index: -1
+cat1_face_blink
+  rotate: false
+  xy: 1247, 9
+  size: 303, 139
+  orig: 303, 139
+  offset: 0, 0
+  index: -1
+cat1_face_cheeky_angry
+  rotate: true
+  xy: 988, 149
+  size: 308, 167
+  orig: 308, 167
+  offset: 0, 0
+  index: -1
+cat1_face_idle
+  rotate: true
+  xy: 1157, 150
+  size: 307, 183
+  orig: 307, 183
+  offset: 0, 0
+  index: -1
+cat1_hat
+  rotate: false
+  xy: 1667, 247
+  size: 206, 210
+  orig: 206, 210
+  offset: 0, 0
+  index: -1
+cat1_hat_back
+  rotate: false
+  xy: 1470, 151
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1
+cat1_head
+  rotate: false
+  xy: 501, 64
+  size: 485, 393
+  orig: 485, 393
+  offset: 0, 0
+  index: -1
+cat1_left_arm
+  rotate: false
+  xy: 1903, 20
+  size: 70, 76
+  orig: 70, 77
+  offset: 0, 1
+  index: -1
+cat1_left_arm_straight
+  rotate: true
+  xy: 501, 2
+  size: 60, 137
+  orig: 60, 137
+  offset: 0, 0
+  index: -1
+cat1_left_leg
+  rotate: true
+  xy: 1875, 284
+  size: 173, 123
+  orig: 173, 124
+  offset: 0, 1
+  index: -1
+cat1_left_whiskers
+  rotate: true
+  xy: 1342, 207
+  size: 250, 126
+  orig: 250, 126
+  offset: 0, 0
+  index: -1
+cat1_quiff
+  rotate: false
+  xy: 988, 3
+  size: 104, 144
+  orig: 104, 144
+  offset: 0, 0
+  index: -1
+cat1_right_arm
+  rotate: false
+  xy: 640, 2
+  size: 118, 60
+  orig: 118, 62
+  offset: 0, 2
+  index: -1
+cat1_right_leg
+  rotate: false
+  xy: 1903, 98
+  size: 104, 184
+  orig: 104, 184
+  offset: 0, 0
+  index: -1
+cat1_right_whiskers
+  rotate: true
+  xy: 1470, 233
+  size: 224, 195
+  orig: 224, 195
+  offset: 0, 0
+  index: -1
+cat1_suit
+  rotate: false
+  xy: 1735, 48
+  size: 166, 197
+  orig: 166, 197
+  offset: 0, 0
+  index: -1
+cat1_tail
+  rotate: false
+  xy: 2, 14
+  size: 497, 443
+  orig: 498, 444
+  offset: 0, 1
+  index: -1
+cat1_torso
+  rotate: false
+  xy: 1574, 18
+  size: 159, 213
+  orig: 160, 214
+  offset: 0, 1
+  index: -1
