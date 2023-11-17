@@ -1,0 +1,104 @@
+
+sheep_1.png
+size: 1390,629
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sheep1_branch_bum
+  rotate: false
+  xy: 991, 334
+  size: 135, 111
+  orig: 135, 111
+  offset: 0, 0
+  index: -1
+sheep1_branch_top_left
+  rotate: true
+  xy: 1144, 416
+  size: 211, 135
+  orig: 211, 135
+  offset: 0, 0
+  index: -1
+sheep1_branch_top_right
+  rotate: false
+  xy: 942, 92
+  size: 200, 226
+  orig: 200, 226
+  offset: 0, 0
+  index: -1
+sheep1_face_idle
+  rotate: false
+  xy: 1144, 256
+  size: 178, 158
+  orig: 178, 158
+  offset: 0, 0
+  index: -1
+sheep1_head
+  rotate: false
+  xy: 713, 17
+  size: 227, 301
+  orig: 227, 301
+  offset: 0, 0
+  index: -1
+sheep1_left_ear
+  rotate: false
+  xy: 991, 447
+  size: 151, 180
+  orig: 151, 180
+  offset: 0, 0
+  index: -1
+sheep1_left_leg_back
+  rotate: false
+  xy: 1335, 227
+  size: 41, 120
+  orig: 41, 120
+  offset: 0, 0
+  index: -1
+sheep1_left_leg_front
+  rotate: false
+  xy: 1335, 489
+  size: 53, 138
+  orig: 53, 138
+  offset: 0, 0
+  index: -1
+sheep1_quiff
+  rotate: false
+  xy: 713, 320
+  size: 276, 307
+  orig: 276, 307
+  offset: 0, 0
+  index: -1
+sheep1_right_ear
+  rotate: true
+  xy: 1144, 100
+  size: 154, 178
+  orig: 154, 178
+  offset: 0, 0
+  index: -1
+sheep1_right_leg_back
+  rotate: false
+  xy: 1335, 105
+  size: 41, 120
+  orig: 41, 120
+  offset: 0, 0
+  index: -1
+sheep1_right_leg_front
+  rotate: false
+  xy: 1335, 349
+  size: 53, 138
+  orig: 53, 138
+  offset: 0, 0
+  index: -1
+sheep1_straw
+  rotate: false
+  xy: 942, 2
+  size: 391, 88
+  orig: 391, 88
+  offset: 0, 0
+  index: -1
+sheep1_torso
+  rotate: false
+  xy: 2, 18
+  size: 709, 609
+  orig: 709, 609
+  offset: 0, 0
+  index: -1

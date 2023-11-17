@@ -1,0 +1,83 @@
+
+flamingo_1.png
+size: 982,246
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+flamingo1_hair
+  rotate: false
+  xy: 699, 138
+  size: 133, 106
+  orig: 133, 106
+  offset: 0, 0
+  index: -1
+flamingo1_head
+  rotate: false
+  xy: 207, 2
+  size: 188, 242
+  orig: 188, 242
+  offset: 0, 0
+  index: -1
+flamingo1_left_leg
+  rotate: true
+  xy: 778, 5
+  size: 58, 202
+  orig: 58, 202
+  offset: 0, 0
+  index: -1
+flamingo1_left_wing_down
+  rotate: true
+  xy: 834, 132
+  size: 112, 123
+  orig: 112, 123
+  offset: 0, 0
+  index: -1
+flamingo1_left_wing_mid
+  rotate: false
+  xy: 778, 65
+  size: 192, 65
+  orig: 192, 65
+  offset: 0, 0
+  index: -1
+flamingo1_left_wing_up
+  rotate: true
+  xy: 397, 94
+  size: 150, 140
+  orig: 150, 140
+  offset: 0, 0
+  index: -1
+flamingo1_right_leg
+  rotate: true
+  xy: 539, 126
+  size: 118, 158
+  orig: 118, 158
+  offset: 0, 0
+  index: -1
+flamingo1_right_wing_down
+  rotate: false
+  xy: 707, 8
+  size: 69, 128
+  orig: 69, 128
+  offset: 0, 0
+  index: -1
+flamingo1_right_wing_mid
+  rotate: false
+  xy: 397, 3
+  size: 154, 89
+  orig: 154, 89
+  offset: 0, 0
+  index: -1
+flamingo1_right_wing_up
+  rotate: false
+  xy: 553, 6
+  size: 152, 118
+  orig: 152, 118
+  offset: 0, 0
+  index: -1
+flamingo1_torso
+  rotate: false
+  xy: 2, 10
+  size: 203, 234
+  orig: 203, 234
+  offset: 0, 0
+  index: -1
